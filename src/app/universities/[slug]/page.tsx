@@ -51,7 +51,168 @@ export default async function UniversityDetailPage({
           </aside>
         </div>
       </section>
+
+      <RelatedUniversitiesRail current={u} />
+      <NextActionCTA />
     </>
+  );
+}
+
+function RelatedUniversitiesRail({ current }: { current: (typeof universities)[number] }) {
+  const related = universities
+    .filter((x) => x.slug !== current.slug)
+    .map((x) => ({
+      u: x,
+      score:
+        x.fields.filter((f) => current.fields.includes(f)).length * 3 +
+        (x.region === current.region ? 2 : 0) +
+        (x.type === current.type ? 1 : 0),
+    }))
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 4)
+    .map((x) => x.u);
+
+  if (related.length === 0) return null;
+
+  return (
+    <section className="border-t-2 border-ink bg-white py-12 md:py-16">
+      <div className="container-aonavi">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand-deep">
+              Related
+            </p>
+            <h2 className="mt-1 font-latin text-2xl font-extrabold uppercase tracking-[0.02em] text-ink md:text-3xl">
+              同じ学問・エリアの大学
+            </h2>
+          </div>
+          <Link
+            href="/universities"
+            className="hidden font-latin text-xs font-extrabold uppercase tracking-[0.14em] text-brand-deep hover:underline md:inline"
+          >
+            All Universities →
+          </Link>
+        </div>
+        <ul className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {related.map((r, i) => (
+            <li key={r.slug}>
+              <Link
+                href={`/universities/${r.slug}`}
+                className="group flex h-full flex-col border-2 border-ink bg-white p-5 shadow-[5px_5px_0_var(--color-ink)] transition hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
+              >
+                <p className="font-latin text-3xl font-extrabold leading-none text-brand-deep">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <div className="mt-4 flex flex-wrap gap-1.5">
+                  <span
+                    className={`border-2 border-ink px-2 py-0.5 font-latin text-[10px] font-extrabold uppercase tracking-[0.12em] ${
+                      r.type === "国立"
+                        ? "bg-ink text-white"
+                        : r.type === "公立"
+                        ? "bg-accent text-ink"
+                        : "bg-white text-ink"
+                    }`}
+                  >
+                    {r.type}
+                  </span>
+                  <span className="border border-ink bg-white px-2 py-0.5 font-latin text-[10px] font-extrabold uppercase tracking-[0.12em] text-ink-soft">
+                    {r.pref}
+                  </span>
+                </div>
+                <p className="mt-3 text-base font-black text-ink">{r.name}</p>
+                <p className="mt-2 text-xs font-bold leading-relaxed text-ink-soft">
+                  {r.fields.slice(0, 3).map((f) => `#${f}`).join(" ")}
+                </p>
+                <p className="mt-auto pt-4 inline-flex items-center gap-1 font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand-deep">
+                  Read →
+                </p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function NextActionCTA() {
+  return (
+    <section className="border-y-2 border-ink bg-section-soft py-12 md:py-16">
+      <div className="container-aonavi">
+        <p className="font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand-deep">
+          Next Actions
+        </p>
+        <h2 className="mt-1 font-latin text-2xl font-extrabold uppercase tracking-[0.02em] text-ink md:text-3xl">
+          次に読みたい・やりたいこと
+        </h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {[
+            {
+              en: "Diagnosis",
+              t: "合格力を診断する",
+              d: "あなたに合う他の大学候補も提案",
+              href: "/diagnosis",
+              dark: true,
+            },
+            {
+              en: "Stories",
+              t: "合格体験記を読む",
+              d: "条件の近い先輩の合格ロードマップ",
+              href: "/experience",
+            },
+            {
+              en: "Past Exam",
+              t: "過去問・出題傾向",
+              d: "小論文・面接・プレゼンの傾向を確認",
+              href: "/pastexam",
+            },
+          ].map((c, i) => (
+            <Link
+              key={c.en}
+              href={c.href}
+              className={`group flex flex-col border-2 border-ink p-5 transition hover:-translate-y-1 ${
+                c.dark
+                  ? "bg-ink text-white shadow-[6px_6px_0_var(--color-brand)] hover:shadow-[3px_3px_0_var(--color-brand)]"
+                  : "bg-white text-ink shadow-[6px_6px_0_var(--color-ink)] hover:shadow-[3px_3px_0_var(--color-ink)]"
+              }`}
+            >
+              <p
+                className={`font-latin text-2xl font-extrabold leading-none ${
+                  c.dark ? "text-accent" : "text-brand-deep"
+                }`}
+              >
+                {String(i + 1).padStart(2, "0")}
+              </p>
+              <p
+                className={`mt-3 font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] ${
+                  c.dark ? "text-accent" : "text-brand-deep"
+                }`}
+              >
+                {c.en}
+              </p>
+              <p className={`mt-1 text-base font-black ${c.dark ? "text-white" : "text-ink"}`}>
+                {c.t}
+              </p>
+              <p
+                className={`mt-2 text-xs font-bold leading-relaxed ${
+                  c.dark ? "text-white/75" : "text-ink-soft"
+                }`}
+              >
+                {c.d}
+              </p>
+              <p
+                className={`mt-auto pt-4 inline-flex items-center gap-1 font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] ${
+                  c.dark ? "text-accent" : "text-brand-deep"
+                }`}
+              >
+                Open
+                <span className="transition group-hover:translate-x-1">→</span>
+              </p>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 

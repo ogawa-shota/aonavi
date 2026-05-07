@@ -156,6 +156,106 @@ export default async function ColumnDetailPage({
           </aside>
         </div>
       </section>
+
+      <NextReadsRail />
+      <NextActionCTA />
     </>
+  );
+}
+
+function NextReadsRail() {
+  const items = [
+    { slug: "interview-tips", cat: "Interview", t: "面接で聞かれる質問BEST20と回答フレーム", min: 6 },
+    { slug: "schedule", cat: "Schedule", t: "高2春から逆算する 総合型選抜カレンダー", min: 10 },
+    { slug: "research", cat: "Research", t: "探究テーマが思いつかない人へ｜決め方の型", min: 7 },
+    { slug: "shoron-format", cat: "Shoron", t: "小論文の構成テンプレート 4選", min: 9 },
+  ];
+  return (
+    <section className="border-t-2 border-ink bg-white py-12 md:py-16">
+      <div className="container-aonavi">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand-deep">
+              Next Reads
+            </p>
+            <h2 className="mt-1 font-latin text-2xl font-extrabold uppercase tracking-[0.02em] text-ink md:text-3xl">
+              次に読みたいコラム
+            </h2>
+          </div>
+          <Link
+            href="/column"
+            className="hidden font-latin text-xs font-extrabold uppercase tracking-[0.14em] text-brand-deep hover:underline md:inline"
+          >
+            All Columns →
+          </Link>
+        </div>
+        <ul className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {items.map((c, i) => (
+            <li key={c.slug}>
+              <Link
+                href={`/column/${c.slug}`}
+                className="group flex h-full flex-col border-2 border-ink bg-white p-5 shadow-[5px_5px_0_var(--color-ink)] transition hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
+              >
+                <p className="font-latin text-3xl font-extrabold leading-none text-brand-deep">
+                  {String(i + 1).padStart(2, "0")}
+                </p>
+                <p className="mt-4 font-latin text-[11px] font-extrabold uppercase tracking-[0.12em] text-brand-deep">
+                  #{c.cat}
+                </p>
+                <p className="mt-1 text-base font-black leading-snug text-ink">{c.t}</p>
+                <p className="mt-auto pt-4 font-latin text-[10px] font-extrabold uppercase tracking-[0.12em] text-ink-mute">
+                  {c.min} min read
+                </p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+function NextActionCTA() {
+  return (
+    <section className="border-y-2 border-ink bg-section-soft py-12 md:py-16">
+      <div className="container-aonavi">
+        <p className="font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand-deep">
+          Take Action
+        </p>
+        <h2 className="mt-1 font-latin text-2xl font-extrabold uppercase tracking-[0.02em] text-ink md:text-3xl">
+          読んだら、次の一歩へ。
+        </h2>
+        <div className="mt-6 grid gap-4 md:grid-cols-3">
+          {[
+            { en: "Diagnosis", t: "合格力診断", d: "あなたに合う大学・対策法を3分で診断", href: "/diagnosis", dark: true },
+            { en: "Universities", t: "大学を探す", d: "総合型選抜の実施校を条件で絞り込み", href: "/universities" },
+            { en: "Juku", t: "塾を探す", d: "志望理由書・面接・小論の対策塾を比較", href: "/juku" },
+          ].map((c, i) => (
+            <Link
+              key={c.en}
+              href={c.href}
+              className={`group flex flex-col border-2 border-ink p-5 transition hover:-translate-y-1 ${
+                c.dark
+                  ? "bg-ink text-white shadow-[6px_6px_0_var(--color-brand)] hover:shadow-[3px_3px_0_var(--color-brand)]"
+                  : "bg-white text-ink shadow-[6px_6px_0_var(--color-ink)] hover:shadow-[3px_3px_0_var(--color-ink)]"
+              }`}
+            >
+              <p className={`font-latin text-2xl font-extrabold leading-none ${c.dark ? "text-accent" : "text-brand-deep"}`}>
+                {String(i + 1).padStart(2, "0")}
+              </p>
+              <p className={`mt-3 font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] ${c.dark ? "text-accent" : "text-brand-deep"}`}>
+                {c.en}
+              </p>
+              <p className={`mt-1 text-base font-black ${c.dark ? "text-white" : "text-ink"}`}>{c.t}</p>
+              <p className={`mt-2 text-xs font-bold leading-relaxed ${c.dark ? "text-white/75" : "text-ink-soft"}`}>{c.d}</p>
+              <p className={`mt-auto pt-4 inline-flex items-center gap-1 font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] ${c.dark ? "text-accent" : "text-brand-deep"}`}>
+                Open
+                <span className="transition group-hover:translate-x-1">→</span>
+              </p>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }

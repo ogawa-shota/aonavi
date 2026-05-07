@@ -13,6 +13,7 @@ const mainNav = [
 ];
 
 const subNav = [
+  { href: "/start", label: "初めての方へ" },
   { href: "/news", label: "受験ニュース" },
   { href: "/event", label: "オープンキャンパス" },
   { href: "/diagnosis", label: "合格力診断" },
@@ -38,6 +39,26 @@ export function Header() {
           : "border-b-2 border-ink bg-header/80 backdrop-blur-md"
       }`}
     >
+      <div className="hidden border-b border-line-soft bg-accent md:block">
+        <div className="container-aonavi flex h-7 items-center justify-between gap-4 text-[11px]">
+          <p className="flex items-center gap-2 font-bold text-ink">
+            <span className="rotate-[-1deg] border border-ink bg-white px-1.5 py-0.5 font-latin text-[10px] font-extrabold uppercase tracking-[0.12em]">
+              Now On
+            </span>
+            5校以上のまとめ請求でデジタルギフト 2,000円分プレゼント中
+            <Link href="/resource-request" className="font-latin text-[10px] font-extrabold uppercase tracking-[0.14em] text-brand-deep hover:underline">
+              詳細 →
+            </Link>
+          </p>
+          <div className="flex items-center gap-3 font-bold text-ink-soft">
+            <Link href="/start" className="hover:text-brand-deep">初めての方へ</Link>
+            <span className="opacity-30">/</span>
+            <Link href="#" className="hover:text-brand-deep">ログイン</Link>
+            <Link href="#" className="hover:text-brand-deep">会員登録</Link>
+          </div>
+        </div>
+      </div>
+
       <div className="container-aonavi flex items-center justify-between gap-4 py-3">
         <Link href="/" className="group flex items-baseline gap-2.5">
           <span className="font-latin text-3xl font-extrabold text-ink transition group-hover:text-brand-deep">
@@ -61,6 +82,12 @@ export function Header() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
+          <Link
+            href="/start"
+            className="hidden items-center gap-1 rounded-full border border-ink-mute bg-white px-3 py-2 text-[11px] font-extrabold text-ink-soft transition hover:border-ink hover:text-ink xl:inline-flex"
+          >
+            初めての方へ
+          </Link>
           <Link
             href="/diagnosis"
             className="inline-flex items-center gap-2 rounded-full border-2 border-ink bg-white px-4 py-2 text-[12px] font-extrabold text-ink transition hover:bg-accent"
