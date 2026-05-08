@@ -1,6 +1,14 @@
 import Link from "next/link";
 import { SectionHead } from "@/components/SectionHead";
 import { TabbedTestimonials } from "@/components/TabbedTestimonials";
+import { popularKeywords } from "@/lib/content/taxonomies";
+import { columns } from "@/lib/content/columns";
+import { newsItems } from "@/lib/content/news";
+import { homeRanking } from "@/lib/content/ranking";
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ページ内専用の表示メタデータ（データ層に置くほどではない UI 文言）
+// ─────────────────────────────────────────────────────────────────────────────
 
 const steps = [
   { n: "01", t: "探す", en: "Search", d: "全国の大学・塾を、エリア・学問・入試方式で絞り込む。" },
@@ -66,41 +74,31 @@ const campaigns = [
   },
 ];
 
+// ─────────────────────────────────────────────────────────────────────────────
+// content/* から派生させたデータ（トップ表示用に整形）
+// ─────────────────────────────────────────────────────────────────────────────
+
+const news = newsItems.slice(0, 3).map((n) => ({
+  date: n.shortDate,
+  tag: n.tag,
+  title: n.title,
+}));
+
+const ranking = homeRanking;
+
+const columnFeatures = columns.slice(0, 4).map((c) => ({
+  slug: c.slug,
+  cat: c.categoryEn,
+  title: c.title,
+  minutes: c.minutes,
+}));
+
+// トップに出すオープンキャンパス。/event の events から抜粋しつつ表示用に整形。
 const events = [
   { date: "5/18", weekday: "Sat", style: "対面", univ: "サンプル大学A", title: "学部別オープンキャンパス（来校型）", area: "東京" },
   { date: "5/25", weekday: "Sat", style: "オンライン", univ: "AOナビ主催", title: "総合型選抜 合同説明会｜参加大学50校", area: "全国" },
   { date: "6/02", weekday: "Sun", style: "対面", univ: "サンプル大学C", title: "学部別 模擬授業デー", area: "愛知" },
   { date: "6/08", weekday: "Sat", style: "ハイブリッド", univ: "サンプル大学F", title: "総合型選抜 出願ガイダンス", area: "京都" },
-];
-
-const ranking = [
-  { rank: "01", name: "サンプル大学A", note: "志望理由書通過率 78%", trend: "↑3" },
-  { rank: "02", name: "サンプル大学C", note: "資料請求 +120% 今月", trend: "↑1" },
-  { rank: "03", name: "サンプル大学G", note: "評定不問の総合型を新設", trend: "NEW" },
-  { rank: "04", name: "サンプル大学B", note: "小論文配点比率 50%", trend: "→" },
-  { rank: "05", name: "サンプル大学F", note: "プレゼン重視・面接2回", trend: "→" },
-];
-
-const news = [
-  { date: "5/06", tag: "速報", title: "2026年度 総合型選抜の出願日程が一部大学で前倒し" },
-  { date: "5/02", tag: "改訂", title: "サンプル大学A、英語外部試験スコアの加点制度を導入" },
-  { date: "4/28", tag: "イベント", title: "オンライン合同説明会｜参加大学50校が確定" },
-];
-
-const columnFeatures = [
-  { slug: "essay-basics", cat: "Essay", title: "落ちる志望理由書の共通点と、改善の3ステップ", minutes: 8 },
-  { slug: "interview-tips", cat: "Interview", title: "面接で聞かれる質問BEST20と回答フレーム", minutes: 6 },
-  { slug: "schedule", cat: "Schedule", title: "高2春から逆算する 総合型選抜カレンダー", minutes: 10 },
-  { slug: "research", cat: "Research", title: "探究テーマが思いつかない人へ｜決め方の型", minutes: 7 },
-];
-
-const popularKeywords = [
-  "総合型選抜 評定なし",
-  "公募推薦 国公立",
-  "志望理由書 添削",
-  "面接対策 塾",
-  "オンライン",
-  "プレゼン型",
 ];
 
 export default function Home() {

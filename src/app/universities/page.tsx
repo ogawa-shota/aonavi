@@ -1,11 +1,10 @@
 import Link from "next/link";
+import { fieldList, regions } from "@/lib/content/taxonomies";
 import {
-  fieldList,
-  regions,
   selectionLegend,
   universities,
   type University,
-} from "@/lib/sample-data";
+} from "@/lib/content/universities";
 
 const groupRank: Record<University["type"], number> = { 国立: 0, 公立: 1, 私立: 2 };
 

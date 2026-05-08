@@ -1,10 +1,5 @@
 import Link from "next/link";
-import {
-  jukus,
-  type Juku,
-  type JukuFormat,
-  type JukuGoal,
-} from "@/lib/sample-data";
+import { jukus, type Juku, type JukuFormat, type JukuGoal } from "@/lib/content/jukus";
 
 const regionOrder: Juku["region"][] = [
   "北海道・東北",

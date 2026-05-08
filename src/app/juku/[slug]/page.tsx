@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { jukus, type Juku, type JukuGoal } from "@/lib/sample-data";
+import { jukus, type Juku, type JukuGoal } from "@/lib/content/jukus";
 
 const sections = [
   { id: "overview", label: "概要", en: "Overview" },

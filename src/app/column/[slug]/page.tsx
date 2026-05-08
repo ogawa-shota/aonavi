@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { columns, columnPopular, columnTags, getColumn, getColumnCategory } from "@/lib/content/columns";
 
 export default async function ColumnDetailPage({
   params,
@@ -6,6 +7,8 @@ export default async function ColumnDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const c = getColumn(slug);
+  const cat = c ? getColumnCategory(c.category) : undefined;
 
   return (
     <>
@@ -19,15 +22,13 @@ export default async function ColumnDetailPage({
             <span className="text-ink">{slug}</span>
           </p>
           <p className="mt-6 inline-flex rotate-[-2deg] border-2 border-ink bg-accent px-3 py-1.5 font-latin text-[11px] font-extrabold uppercase tracking-[0.12em] text-ink">
-            #志望理由書
+            #{cat?.label ?? "コラム"}
           </p>
           <h1 className="mt-5 text-balance text-3xl font-black leading-tight text-ink md:text-5xl">
-            落ちる志望理由書の共通点と、
-            <br />
-            改善の3ステップ。
+            {c?.title ?? "未公開のコラム"}
           </h1>
           <p className="mt-4 font-latin text-xs font-extrabold uppercase tracking-[0.14em] text-ink-mute">
-            2026/05/01 · AOナビ編集部 · 8 min read
+            {c?.date ?? "—"} · {c?.author ?? "AOナビ編集部"} · {c?.minutes ?? 0} min read
           </p>
         </div>
       </section>
@@ -35,53 +36,57 @@ export default async function ColumnDetailPage({
       <section className="bg-section-soft py-14 md:py-20">
         <div className="container-aonavi grid gap-10 lg:grid-cols-[1fr_300px]">
           <article className="border-2 border-ink bg-white p-6 shadow-[8px_8px_0_var(--color-ink)] md:p-10">
-            <div className="border-l-8 border-brand bg-cream/60 p-5">
-              <p className="font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand-deep">
-                Key Points
-              </p>
-              <ul className="mt-3 space-y-1.5 text-sm font-bold text-ink-soft">
-                <li>・落ちる志望理由書には「学びたい理由」が抜けている</li>
-                <li>・改善の3ステップは「経験 → 問い → 学び」の順で書く</li>
-                <li>・大学の研究内容と接続するチェックリスト付き</li>
-              </ul>
-            </div>
+            {c?.body?.keyPoints && c.body.keyPoints.length > 0 && (
+              <div className="border-l-8 border-brand bg-cream/60 p-5">
+                <p className="font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand-deep">
+                  Key Points
+                </p>
+                <ul className="mt-3 space-y-1.5 text-sm font-bold text-ink-soft">
+                  {c.body.keyPoints.map((k) => (
+                    <li key={k}>・{k}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
 
-            <nav className="mt-8 border-2 border-ink bg-white p-5">
-              <p className="font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand-deep">
-                Index
-              </p>
-              <ol className="mt-3 list-inside list-decimal space-y-1 text-sm font-bold text-ink">
-                <li>志望理由書とは</li>
-                <li>落ちる志望理由書の共通点 3パターン</li>
-                <li>改善の3ステップ</li>
-                <li>大学研究との接続チェックリスト</li>
-                <li>まとめ：書き出す前にやるべき1つのこと</li>
-              </ol>
-            </nav>
+            {c?.body?.outline && c.body.outline.length > 0 && (
+              <nav className="mt-8 border-2 border-ink bg-white p-5">
+                <p className="font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand-deep">
+                  Index
+                </p>
+                <ol className="mt-3 list-inside list-decimal space-y-1 text-sm font-bold text-ink">
+                  {c.body.outline.map((o) => (
+                    <li key={o}>{o}</li>
+                  ))}
+                </ol>
+              </nav>
+            )}
 
-            <div className="mt-10 space-y-5 text-base leading-loose text-ink">
-              <h2 className="font-latin text-2xl font-extrabold uppercase tracking-[0.04em] text-ink md:text-3xl">
-                01 / 志望理由書とは
-              </h2>
-              <p>
-                志望理由書は、総合型選抜・公募推薦で最も配点比率の高い書類のひとつです。書類審査だけで一次選考が行われる大学では、志望理由書の出来がそのまま面接に進めるかを決めます。
-              </p>
-              <p className="text-ink-mute">
-                （※ 本文はサンプル。CMS連携後に動的取得に置き換え予定）
-              </p>
-
-              <h2 className="font-latin text-2xl font-extrabold uppercase tracking-[0.04em] text-ink md:text-3xl">
-                02 / 落ちる志望理由書 3パターン
-              </h2>
-              <p>
-                編集部が見てきた数百本の志望理由書のうち、惜しくも一次で落ちたものに共通する特徴を整理しました。
-              </p>
-
-              <h2 className="font-latin text-2xl font-extrabold uppercase tracking-[0.04em] text-ink md:text-3xl">
-                03 / 改善の3ステップ
-              </h2>
-              <p>「経験 → 問い → 学び」の順で書くと、面接官に意欲が伝わりやすくなります。</p>
-            </div>
+            {c?.body?.sections && c.body.sections.length > 0 ? (
+              <div className="mt-10 space-y-5 text-base leading-loose text-ink">
+                {c.body.sections.map((s) => (
+                  <div key={s.h2}>
+                    <h2 className="font-latin text-2xl font-extrabold uppercase tracking-[0.04em] text-ink md:text-3xl">
+                      {s.h2}
+                    </h2>
+                    {s.paragraphs.map((p, i) => (
+                      <p key={i} className="mt-3">
+                        {p}
+                      </p>
+                    ))}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="mt-10 border-2 border-line-soft bg-bg p-6 text-sm font-bold text-ink-soft">
+                <p className="font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand-deep">
+                  Coming Soon
+                </p>
+                <p className="mt-2">
+                  この記事の本文は準備中です。`src/lib/content/columns.ts` の <code className="font-latin text-brand-deep">{c?.slug ?? slug}</code> エントリに `body` を追加すると公開されます。
+                </p>
+              </div>
+            )}
 
             <section className="mt-12 border-2 border-ink bg-accent p-6 text-center shadow-[6px_6px_0_var(--color-ink)]">
               <p className="font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] text-ink">
@@ -120,17 +125,13 @@ export default async function ColumnDetailPage({
               </p>
               <p className="mt-1 text-base font-black">人気記事</p>
               <ul className="mt-4 divide-y divide-line-soft">
-                {[
-                  { slug: "interview-tips", t: "面接で聞かれる質問BEST20と回答フレーム" },
-                  { slug: "schedule", t: "高2春から逆算する 総合型選抜カレンダー" },
-                  { slug: "research", t: "探究テーマが思いつかない人へ" },
-                ].map((r) => (
+                {columnPopular.map((r) => (
                   <li key={r.slug}>
                     <Link
                       href={`/column/${r.slug}`}
                       className="block py-3 text-xs font-bold leading-relaxed hover:text-brand-deep"
                     >
-                      {r.t}
+                      {r.title}
                     </Link>
                   </li>
                 ))}
@@ -141,13 +142,13 @@ export default async function ColumnDetailPage({
                 Tags
               </p>
               <ul className="mt-3 flex flex-wrap gap-1.5">
-                {["志望理由書", "面接", "小論文", "総合型選抜 基礎"].map((c) => (
-                  <li key={c}>
+                {columnTags.map((t) => (
+                  <li key={t}>
                     <Link
-                      href={`/column?cat=${encodeURIComponent(c)}`}
+                      href={`/column?cat=${encodeURIComponent(t)}`}
                       className="border border-ink bg-white px-2 py-0.5 text-[11px] font-bold text-ink hover:bg-accent"
                     >
-                      #{c}
+                      #{t}
                     </Link>
                   </li>
                 ))}
@@ -157,19 +158,14 @@ export default async function ColumnDetailPage({
         </div>
       </section>
 
-      <NextReadsRail />
+      <NextReadsRail currentSlug={c?.slug} />
       <NextActionCTA />
     </>
   );
 }
 
-function NextReadsRail() {
-  const items = [
-    { slug: "interview-tips", cat: "Interview", t: "面接で聞かれる質問BEST20と回答フレーム", min: 6 },
-    { slug: "schedule", cat: "Schedule", t: "高2春から逆算する 総合型選抜カレンダー", min: 10 },
-    { slug: "research", cat: "Research", t: "探究テーマが思いつかない人へ｜決め方の型", min: 7 },
-    { slug: "shoron-format", cat: "Shoron", t: "小論文の構成テンプレート 4選", min: 9 },
-  ];
+function NextReadsRail({ currentSlug }: { currentSlug?: string }) {
+  const items = columns.filter((c) => c.slug !== currentSlug).slice(0, 4);
   return (
     <section className="border-t-2 border-ink bg-white py-12 md:py-16">
       <div className="container-aonavi">
@@ -200,11 +196,11 @@ function NextReadsRail() {
                   {String(i + 1).padStart(2, "0")}
                 </p>
                 <p className="mt-4 font-latin text-[11px] font-extrabold uppercase tracking-[0.12em] text-brand-deep">
-                  #{c.cat}
+                  #{c.categoryEn}
                 </p>
-                <p className="mt-1 text-base font-black leading-snug text-ink">{c.t}</p>
+                <p className="mt-1 text-base font-black leading-snug text-ink">{c.title}</p>
                 <p className="mt-auto pt-4 font-latin text-[10px] font-extrabold uppercase tracking-[0.12em] text-ink-mute">
-                  {c.min} min read
+                  {c.minutes} min read
                 </p>
               </Link>
             </li>

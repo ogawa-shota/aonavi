@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { selectionLegend, universities } from "@/lib/sample-data";
+import { selectionLegend, universities } from "@/lib/content/universities";
 
 const sections = [
   { id: "overview", label: "概要", en: "Overview" },

@@ -1,25 +1,6 @@
 import Link from "next/link";
 import { PageHero } from "@/components/SectionHead";
-
-const categories = [
-  { id: "basics", label: "総合型選抜 基礎", en: "Basics", count: 24 },
-  { id: "essay", label: "志望理由書", en: "Essay", count: 38 },
-  { id: "shoron", label: "小論文対策", en: "Shoron", count: 26 },
-  { id: "interview", label: "面接対策", en: "Interview", count: 22 },
-  { id: "tankyu", label: "探究活動", en: "Research", count: 18 },
-  { id: "field", label: "学部・学問解説", en: "Fields", count: 32 },
-  { id: "parents", label: "親御さま向け", en: "Parents", count: 14 },
-  { id: "career", label: "進路の悩み", en: "Career", count: 11 },
-];
-
-const featured = [
-  { slug: "essay-basics", cat: "Essay", title: "落ちる志望理由書の共通点と、改善の3ステップ", excerpt: "総合型選抜の合否を分ける志望理由書。書き始める前にチェックすべき構成を解説。", minutes: 8, date: "2026/05/01" },
-  { slug: "interview-tips", cat: "Interview", title: "面接で聞かれる質問BEST20と回答フレーム", excerpt: "面接官の視点から、合格者が共通して実践している答え方の型を整理。", minutes: 6, date: "2026/04/28" },
-  { slug: "schedule", cat: "Basics", title: "高2春から逆算する 総合型選抜カレンダー", excerpt: "高2の春から本番までを月単位で見える化。いつ何を準備するかが分かる。", minutes: 10, date: "2026/04/22" },
-  { slug: "research", cat: "Research", title: "探究テーマが思いつかない人へ｜決め方の型", excerpt: "「自分が面白いと思えるテーマ」を見つけるための問いかけリスト付き。", minutes: 7, date: "2026/04/18" },
-  { slug: "shoron-format", cat: "Shoron", title: "小論文の構成テンプレート 4選", excerpt: "論述型・課題文型・データ型・テーマ型に分けたテンプレートと例文。", minutes: 9, date: "2026/04/12" },
-  { slug: "juku-choice", cat: "Basics", title: "対策塾の選び方｜後悔しない3つのチェック", excerpt: "合格実績・添削回数・面接練習相手。塾選びで見るべき本当に大事な指標。", minutes: 6, date: "2026/04/05" },
-];
+import { columnCategories, columns } from "@/lib/content/columns";
 
 export default function ColumnPage() {
   return (
@@ -38,7 +19,7 @@ export default function ColumnPage() {
           </p>
           <h2 className="mt-1 text-2xl font-black text-ink md:text-3xl">カテゴリから探す。</h2>
           <div className="mt-6 grid gap-3 md:grid-cols-4">
-            {categories.map((c, i) => (
+            {columnCategories.map((c, i) => (
               <Link
                 key={c.id}
                 href={`/column/category/${c.id}`}
@@ -68,7 +49,7 @@ export default function ColumnPage() {
             </p>
             <h2 className="mt-1 text-2xl font-black text-ink md:text-3xl">最新の記事。</h2>
             <div className="mt-6 grid gap-5 md:grid-cols-2">
-              {featured.map((a, i) => (
+              {columns.map((a, i) => (
                 <Link
                   key={a.slug}
                   href={`/column/${a.slug}`}
@@ -81,7 +62,7 @@ export default function ColumnPage() {
                   </div>
                   <div className="flex-1">
                     <div className="flex flex-wrap items-center gap-2 font-latin text-[10px] font-extrabold uppercase tracking-[0.12em]">
-                      <span className="text-brand-deep">#{a.cat}</span>
+                      <span className="text-brand-deep">#{a.categoryEn}</span>
                       <span className="text-ink-mute">{a.date}</span>
                     </div>
                     <p className="mt-2 text-base font-black leading-snug text-ink">{a.title}</p>

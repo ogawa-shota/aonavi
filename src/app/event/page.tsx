@@ -1,14 +1,6 @@
 import Link from "next/link";
 import { PageHero } from "@/components/SectionHead";
-
-const events = [
-  { date: "2026/05/18", time: "10:00–16:00", univ: "サンプル大学A", title: "オープンキャンパス（来校型）", area: "東京", style: "対面" },
-  { date: "2026/05/25", time: "13:00–15:00", univ: "AOナビ主催", title: "総合型選抜 合同説明会（オンライン）", area: "全国", style: "オンライン" },
-  { date: "2026/06/02", time: "10:00–17:00", univ: "サンプル大学C", title: "学部別 模擬授業デー", area: "愛知", style: "対面" },
-  { date: "2026/06/08", time: "14:00–16:00", univ: "サンプル大学F", title: "総合型選抜 出願ガイダンス", area: "京都", style: "ハイブリッド" },
-  { date: "2026/06/15", time: "10:00–15:00", univ: "サンプル大学D", title: "工学部 研究室公開デー", area: "福岡", style: "対面" },
-  { date: "2026/06/22", time: "19:00–20:30", univ: "サンプル大学G", title: "メディア学部 オンライン相談会", area: "全国", style: "オンライン" },
-];
+import { events } from "@/lib/content/events";
 
 export default function EventPage() {
   return (
@@ -72,7 +64,7 @@ export default function EventPage() {
                   </div>
                   <div className="flex shrink-0 gap-2">
                     <Link
-                      href="#"
+                      href={e.href ?? "#"}
                       className="rounded-full border-2 border-ink bg-ink px-5 py-2 font-latin text-xs font-extrabold uppercase tracking-[0.12em] text-white shadow-[3px_3px_0_var(--color-brand)] transition hover:translate-x-0.5 hover:translate-y-0.5 hover:shadow-none"
                     >
                       申し込む
