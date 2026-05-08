@@ -264,4 +264,70 @@ export const universities: University[] = [
       { name: "芸術学部", admission: "総合型選抜", methods: M("書", "実", "面"), deadline: "2026/09/25", capacity: 22, scoreMin: null },
     ],
   },
+  // ───────────────────────────────────────────────────────────────────────────
+  // 慶應義塾大学 (Keio University)
+  // ※ deadline / capacity / scoreMin は仮置き。最新の公式入試要項で要差し替え。
+  // ───────────────────────────────────────────────────────────────────────────
+  {
+    slug: "keio",
+    name: "慶應義塾大学",
+    pref: "東京都",
+    region: "関東",
+    type: "私立",
+    fields: ["経済", "法", "商", "文", "理工", "総合政策", "環境情報", "医", "薬", "看護"],
+    hensachi: [65, 75],
+    scoreMin: null,
+    rating: 4.8,
+    pickup: true,
+    features: ["奨学金", "英語外部", "海外提携"],
+    faculties: [
+      // SFC: AO入試（A方式：高校時代の活動実績重視）
+      {
+        name: "総合政策学部",
+        admission: "総合型選抜",
+        methods: M("書", "活", "面"),
+        deadline: "2026/09/15",
+        capacity: 150,
+        scoreMin: null,
+      },
+      // SFC: AO入試（B方式：自由記述・課題重視）
+      {
+        name: "環境情報学部",
+        admission: "総合型選抜",
+        methods: M("書", "活", "面"),
+        deadline: "2026/09/15",
+        capacity: 150,
+        scoreMin: null,
+      },
+      // 法学部 FIT入試（A方式）
+      {
+        name: "法学部",
+        admission: "公募推薦",
+        methods: M("書", "小", "面"),
+        deadline: "2026/09/22",
+        capacity: 80,
+        scoreMin: 4.0,
+      },
+      // 文学部 自主応募制推薦
+      {
+        name: "文学部",
+        admission: "公募推薦",
+        methods: M("書", "小"),
+        deadline: "2026/11/01",
+        capacity: 50,
+        scoreMin: 4.1,
+      },
+      // 理工学部 AO入試
+      {
+        name: "理工学部",
+        admission: "総合型選抜",
+        methods: M("書", "面", "口"),
+        deadline: "2026/09/30",
+        capacity: 25,
+        scoreMin: 4.0,
+      },
+      // 商学部 一般選抜（推薦系の併設はないが関連項目として）
+      // ※ 商学部の指定校推薦は校内のみのため掲載省略
+    ],
+  },
 ];
