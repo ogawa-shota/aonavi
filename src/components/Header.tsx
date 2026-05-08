@@ -8,7 +8,6 @@ const mainNav = [
   { href: "/juku", label: "塾を探す" },
   { href: "/admission", label: "入試スケジュール" },
   { href: "/pastexam", label: "過去問" },
-  { href: "/experience", label: "合格体験記" },
   { href: "/column", label: "コラム" },
 ];
 

@@ -5,7 +5,6 @@ const sections = [
   { id: "overview", label: "概要", en: "Overview" },
   { id: "matrix", label: "学部 × 入試", en: "Matrix" },
   { id: "docs", label: "提出書類", en: "Docs" },
-  { id: "stories", label: "合格体験記", en: "Stories" },
   { id: "columns", label: "関連コラム", en: "Columns" },
   { id: "access", label: "アクセス", en: "Access" },
 ];
@@ -36,7 +35,6 @@ export default async function UniversityDetailPage({
             <Overview u={u} />
             <MatrixSection u={u} />
             <DocsSection />
-            <StoriesSection slug={u.slug} />
             <ColumnsSection />
             <AccessSection u={u} />
           </div>
@@ -155,10 +153,10 @@ function NextActionCTA() {
               dark: true,
             },
             {
-              en: "Stories",
-              t: "合格体験記を読む",
-              d: "条件の近い先輩の合格ロードマップ",
-              href: "/experience",
+              en: "Open Campus",
+              t: "イベントを見る",
+              d: "オープンキャンパス・説明会で雰囲気を確認",
+              href: "/event",
             },
             {
               en: "Past Exam",
@@ -584,37 +582,6 @@ function DocsSection() {
       >
         More Past Exams →
       </Link>
-    </section>
-  );
-}
-
-function StoriesSection({ slug }: { slug: string }) {
-  void slug;
-  return (
-    <section id="stories" className="scroll-mt-44">
-      <BlockHead en="Stories" jp="この大学の合格体験記" />
-      <ul className="mt-6 grid gap-4 md:grid-cols-2">
-        {[
-          { id: "exp-1", year: "2025", exam: "総合型選抜", name: "Sさん", q: "高3夏まで部活漬けからの逆転合格" },
-          { id: "exp-2", year: "2024", exam: "公募推薦", name: "Kさん", q: "評定3.8でも面接で勝負した記録" },
-        ].map((e) => (
-          <li key={e.id}>
-            <Link
-              href={`/experience/${e.id}`}
-              className="group block border-2 border-ink bg-white p-5 shadow-[5px_5px_0_var(--color-ink)] transition hover:translate-x-1 hover:translate-y-1 hover:shadow-none"
-            >
-              <p className="font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand-deep">
-                {e.year} ／ {e.exam}
-              </p>
-              <p className="mt-2 text-base font-black text-ink">「{e.q}」</p>
-              <p className="mt-2 text-xs font-bold text-ink-mute">— {e.name}</p>
-              <p className="mt-3 inline-flex items-center gap-1 font-latin text-[11px] font-extrabold uppercase tracking-[0.14em] text-brand-deep">
-                Read story →
-              </p>
-            </Link>
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }

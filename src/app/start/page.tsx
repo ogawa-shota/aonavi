@@ -34,9 +34,8 @@ const journey = [
     n: "02",
     en: "Step 2 · Learn",
     t: "知る",
-    d: "大学詳細・合格体験記・コラム・過去問で、合格までの道筋を理解。志望理由書のヒントもここで得る。",
+    d: "大学詳細・コラム・過去問で、合格までの道筋を理解。志望理由書のヒントもここで得る。",
     actions: [
-      { href: "/experience", label: "合格体験記" },
       { href: "/column", label: "コラム" },
       { href: "/pastexam", label: "過去問" },
     ],

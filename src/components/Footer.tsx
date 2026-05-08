@@ -15,7 +15,6 @@ const cols = [
     heading: "Read",
     links: [
       { href: "/column", label: "受験コラム" },
-      { href: "/experience", label: "合格体験記" },
       { href: "/news", label: "受験ニュース" },
       { href: "/event", label: "オープンキャンパス" },
     ],

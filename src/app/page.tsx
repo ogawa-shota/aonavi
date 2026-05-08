@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { SectionHead } from "@/components/SectionHead";
-import { TabbedTestimonials } from "@/components/TabbedTestimonials";
 import { popularKeywords } from "@/lib/content/taxonomies";
 import { columns } from "@/lib/content/columns";
 import { newsItems } from "@/lib/content/news";
@@ -12,7 +11,7 @@ import { homeRanking } from "@/lib/content/ranking";
 
 const steps = [
   { n: "01", t: "探す", en: "Search", d: "全国の大学・塾を、エリア・学問・入試方式で絞り込む。" },
-  { n: "02", t: "知る", en: "Learn", d: "合格体験記・コラム・過去問で、合格までの道筋を理解する。" },
+  { n: "02", t: "知る", en: "Learn", d: "コラム・過去問・大学詳細で、合格までの道筋を理解する。" },
   { n: "03", t: "挑戦する", en: "Apply", d: "資料請求・無料体験・診断で、自分に合う進路を選び取る。" },
 ];
 
@@ -111,7 +110,6 @@ export default function Home() {
       <TaxonomyTiles />
       <EventsAndScheduleSection />
       <PickupAndRankingSection />
-      <TestimonialsSection />
       <ColumnSection />
       <ConnectSection />
       <ResourceCTA />
@@ -622,30 +620,6 @@ function PickupAndRankingSection() {
           >
             ランキング一覧 →
           </Link>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function TestimonialsSection() {
-  return (
-    <section className="border-b-2 border-ink bg-white py-16 md:py-24">
-      <div className="container-aonavi">
-        <div className="flex items-end justify-between gap-4">
-          <SectionHead en="Stories" jp="先輩・在学生のリアルな声。" eyebrow="Voices" />
-          <Link
-            href="/experience"
-            className="hidden font-latin text-xs font-extrabold uppercase tracking-[0.14em] text-brand-deep hover:underline md:inline"
-          >
-            All Stories →
-          </Link>
-        </div>
-        <p className="mt-4 max-w-2xl text-sm font-bold text-ink-soft">
-          合格直後の体験談、入学後の生のリアル。タブを切り替えて自分に近い声を探せます。
-        </p>
-        <div className="mt-8">
-          <TabbedTestimonials />
         </div>
       </div>
     </section>
