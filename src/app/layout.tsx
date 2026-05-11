@@ -3,6 +3,7 @@ import { Archivo_Black, Barlow_Condensed, Noto_Sans_JP } from "next/font/google"
 import "./globals.css";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { AuthProvider } from "@/components/AuthProvider";
 
 const sans = Noto_Sans_JP({
   weight: ["400", "500", "700", "900"],
@@ -39,9 +40,11 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${sans.variable} ${latin.variable} ${display.variable}`}>
       <body className="flex min-h-full flex-col antialiased">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <AuthProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </AuthProvider>
       </body>
     </html>
   );
