@@ -36,7 +36,7 @@ npm run dev
    - アプリの種類: **ウェブアプリケーション**
    - 名前: `AOナビ Web`
    - 承認済みのリダイレクト URI:
-     - `http://localhost:3001/api/auth/callback/google` （ローカル開発）
+     - `http://localhost:3000/api/auth/callback/google` （ローカル開発）
      - `https://your-domain.com/api/auth/callback/google` （本番）
 5. 発行された **クライアント ID** と **クライアントシークレット** を控える
 
