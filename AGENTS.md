@@ -26,3 +26,7 @@ Read `README.md`, `site-structure-aonavi.md`, and `docs/AUTH-SETUP.md` before ch
 - `npm run start`: serve a production build
 
 Preserve the existing architecture and visual language. For meaningful UI changes, inspect the real page in a browser at desktop, tablet, and mobile sizes; check keyboard access, focus states, interactions, and console errors before finishing. Never commit secrets or real OAuth credentials.
+
+## Shota AI OS entry point
+
+Use [canonical orchestration](../shota-ai-os/core/orchestration.md) to select the workflow and completion gates. Read the relevant skill there; do not duplicate its methodology here. Keep this repository's architecture, constraints, commands, and local instructions in force. If the sibling checkout is unavailable, resolve `~/.agents/skills/context-router/SKILL.md` to its canonical directory.
