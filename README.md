@@ -1,24 +1,25 @@
 # AOナビ
 
-総合型選抜（旧AO入試）に特化した、年内入試マッチング × 対策塾検索 × ノウハウメディアのハイブリッドポータル。
+総合型選抜（旧AO入試）に特化した、年内入試情報、大学・対策塾検索、ノウハウメディアをまとめたポータルのNext.js実装です。
 
-運営：KYUTE合同会社
+運営表記：KYUTE合同会社
 
-## ドキュメント
+## Current project truth
 
-- [サイト構成書](./site-structure-aonavi.md)
-- [認証セットアップ](./docs/AUTH-SETUP.md)
+- [Current site and route contract](./docs/SITE.md)
+- [Current observed design contract](./docs/DESIGN.md)
+- [Authentication setup](./docs/AUTH-SETUP.md)
 
-サイト構成書はプロダクト全体の計画を含みます。現在実装済みの画面は `src/app/` のルート構成を正としてください。
+旧構成書は [2026-05-02 product plan](./docs/archive/2026-05-02_product-plan.md) として保存しています。そこにあるrouteやblue/pastel design proposalを、現在の実装済み仕様として扱わないでください。
 
-## スタック
+## Stack
 
 - Next.js 16 (App Router) + React 19 + TypeScript
 - Tailwind CSS 4
 - Auth.js / next-auth v5（mock認証とGoogle OAuthを切替）
 - Vercel（ホスティング）
 
-## セットアップ
+## Setup
 
 Node.js 20.9以上を使用してください。
 
@@ -29,7 +30,7 @@ npm run dev
 
 [http://localhost:3000](http://localhost:3000) を開きます。環境変数を設定しない場合はmock認証で動作します。Google OAuthを利用する場合は[認証セットアップ](./docs/AUTH-SETUP.md)に従って `.env.local` を設定してください。
 
-## コマンド
+## Commands
 
 ```bash
 npm run dev    # 開発サーバー
@@ -38,13 +39,16 @@ npm run start  # 本番ビルドを起動
 npm run lint   # ESLint
 ```
 
-## 主な構成
+## Architecture
 
 ```text
-src/app/          ページとRoute Handler
-src/components/   共通UIと認証コンポーネント
-src/lib/content/  大学・塾・記事等のドメインデータ
-src/lib/auth/     mock / real認証の切替
+src/app/          page routes and Auth.js route handler
+src/components/   shared UI and authentication components
+src/lib/content/  universities, schools, articles, and other typed demo content
+src/lib/auth/     mock / real authentication switch
+docs/             current contracts, authentication setup, and historical archive
 ```
 
-重要なUI変更では、実ブラウザでDesktop・Tablet・Mobileを確認し、表示、操作、アクセシビリティ、console errorを検証してください。
+The repository currently contains sample/static content and several incomplete integrations. In particular, the resource-request form identifies its submission as unconnected/dummy, and real OAuth is optional. Treat visible UI as current implementation evidence, not proof that a production workflow is complete.
+
+UI change methodology lives in Shota AI OS. For scoped changes, use the project-specific preserve rules in `docs/DESIGN.md` and keep unrelated routes and sections unchanged.
